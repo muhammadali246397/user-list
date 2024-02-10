@@ -13,11 +13,11 @@ const UserDetails = () => {
     return (
         <div className='container mx-auto px-4'>
             <div style={{ backgroundImage: `url(${img})`, backgroundSize: "cover" }} className='flex items-center justify-center mb-20 text-center w-full h-[50vh]'>
-                <h1 className='bg-[#0000003a] text-white border-white border backdrop-blur-lg rounded-lg w-5/6 md:w-1/2 px-20 py-20 '> User Name <br /> <span className=' text-7xl font-bold'>{user?.firstName} {user?.lastName}</span></h1>
+                <h1 className='bg-[#0000003a] text-white border-white border backdrop-blur-lg rounded-lg w-5/6 md:w-1/2 px-14 py-20 '> User Name <br /> <span className='text-5xl md:text-7xl font-bold'>{user?.firstName} {user?.lastName}</span></h1>
             </div>
 
             <div className="card card-side bg-base-100 shadow-xl my-20">
-                <figure><img src={user?.image} alt="Movie" /></figure>
+                <figure><img className='object-contain' src={user?.image} alt="Movie" /></figure>
                 <div className="card-body ml-5">
                  <div className='grid md:grid-cols-3 gap-6'>
                     <div className=''>
