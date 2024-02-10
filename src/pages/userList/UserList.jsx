@@ -2,28 +2,52 @@ import React, { useEffect, useState } from 'react';
 import UserCard from './UserCard';
 
 const UserList = () => {
-    const [users, setUsers] = useState()
-      useEffect(() => {
+    const [users, setUsers] = useState([])
+    const [searchUser, setSearchUser] = useState('');
+    const [sortUser, setSortUser] = useState('name')
+    useEffect(() => {
         fetch("https://dummyjson.com/users")
-        .then(res => res.json())
-        .then(data => setUsers(data.users))
-      }
-      
-      ,[])
+            .then(res => res.json())
+            .then(data => setUsers(data.users))
+    }
+
+        , [])
+    const filteredUsers = users?.filter(user =>
+        user.firstName.toLowerCase().includes(searchUser.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(searchUser.toLowerCase())
+    );
+
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+        switch (sortUser) {
+            case 'name':
+                return `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`);
+            case 'email':
+                return a.email.localeCompare(b.email);
+            case 'company':
+                return a.company.name.localeCompare(b.company.name);
+            default:
+                return 0;
+        }
+    });
+
     return (
         <div className='container mx-auto px-4'>
             <div className=' flex justify-between md:justify-around border-b bg-[#f1f1f1] py-4'>
                 <div>
-                    <input className=' px-5 py-3 border rounded-md' type="text" placeholder='Sarch User' />
-                    <button className='btn bg-[#0ea5e9] hover:bg-[#0284c7] focus:bg-[#0284c7] text-white md:ml-4'>Sarch</button>
+
+                    <input value={searchUser}
+                        onChange={(e) => setSearchUser(e.target.value)}
+                        className=' px-5 py-3 border rounded-md'
+                        type="text"
+                        placeholder='Sarch By Name'
+                    />
                 </div>
                 <div>
-                    <select className="select select-bordered">
-                        <option disabled selected>Sort by</option>
-                        <option>Sort by name</option>
-                        <option>Sort by email</option>
-                        <option>Sort by company</option>
-                     
+                    <select className="select select-bordered" onChange={(e) => setSortUser(e.target.value)}>
+                        <option value="name">Sort by name</option>
+                        <option value="email">Sort by email</option>
+                        <option value="company">Sort by company</option>
+
                     </select>
                 </div>
             </div>
@@ -32,12 +56,12 @@ const UserList = () => {
 
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-               {
-                users?.map((user,index) => <UserCard
-                key={index}
-                user={user}
-                ></UserCard>)
-               }
+                {
+                    sortedUsers?.map((user, index) => <UserCard
+                        key={index}
+                        user={user}
+                    ></UserCard>)
+                }
             </div>
         </div>
     );
