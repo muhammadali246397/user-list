@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserCard from './UserCard';
+import UserForm from '../userForm/UserForm';
 
 const UserList = () => {
     const [users, setUsers] = useState([])
@@ -11,7 +12,8 @@ const UserList = () => {
             .then(data => setUsers(data.users))
     }
 
-        , [])
+    , [])
+
     const filteredUsers = users?.filter(user =>
         user.firstName.toLowerCase().includes(searchUser.toLowerCase()) ||
         user.lastName.toLowerCase().includes(searchUser.toLowerCase())
@@ -34,7 +36,6 @@ const UserList = () => {
         <div className='container mx-auto px-4'>
             <div className=' flex justify-between md:justify-around border-b bg-[#f1f1f1] py-4'>
                 <div>
-
                     <input value={searchUser}
                         onChange={(e) => setSearchUser(e.target.value)}
                         className=' px-5 py-3 border rounded-md'
@@ -62,6 +63,9 @@ const UserList = () => {
                         user={user}
                     ></UserCard>)
                 }
+            </div>
+            <div className='py-10'>
+                <UserForm></UserForm>
             </div>
         </div>
     );

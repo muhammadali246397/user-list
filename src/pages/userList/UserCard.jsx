@@ -14,7 +14,7 @@ const UserCard = ({user}) => {
                     </div>
                 </div>
                 <div>
-                    <h3 className='font-semibold mt-16 text-2xl'><Link to={`/users/${id}`} >{firstName} {lastName}</Link></h3>
+                    <h3 className='font-semibold mt-16 hover:text-orange-700 transition-all focus:text-orange-700 text-2xl'><Link to={`/users/${id}`} >{firstName} {lastName}</Link></h3>
                     <p>{email}</p>
                     <p className='font-semibold'>Adress</p>
                     <p>{address?.address}</p>
