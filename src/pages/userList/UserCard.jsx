@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserCard = ({user}) => {
-    console.log(user)
-    const {firstName, lastName, image, email,address,company} = user;
-    console.log(user.image)
+
+    const {firstName, lastName, id, image, email,address,company} = user;
+
     return (
         <div className=''>
             <div className='md: h-[400px] bg-slate-50 border rounded-lg text-center shadow-xl hover:shadow-2xl'>
@@ -13,12 +14,13 @@ const UserCard = ({user}) => {
                     </div>
                 </div>
                 <div>
-                    <h3 className='font-semibold mt-16 text-2xl'>{firstName} { lastName}</h3>
+                    <h3 className='font-semibold mt-16 text-2xl'><Link to={`/users/${id}`} >{firstName} {lastName}</Link></h3>
                     <p>{email}</p>
                     <p className='font-semibold'>Adress</p>
                     <p>{address?.address}</p>
                     <p className='font-semibold'>Company</p>
                     <p>{company?.name}</p>
+                    
                 </div>
             </div>
             
